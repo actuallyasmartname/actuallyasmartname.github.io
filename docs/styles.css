@@ -1,8 +1,9 @@
 a { color:purple;
-  text-decoration: none;}
-.hovertext a{
+  text-decoration: none;
     font-family:monospace;
-    color:white;
+}
+.hovertext a{
+  color:white;
     transition: color 1s;
 }
 body {    
