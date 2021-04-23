@@ -1,7 +1,7 @@
-a { color:inherit;
+a { color:red;
   text-decoration: none;}
 .hovertext a{
-    color:white;
+    color:orange;
     text-shadow: 0px 0px #00000077;
     transition: color 1s, text-shadow 1s;
 }
