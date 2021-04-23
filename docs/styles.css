@@ -2,7 +2,7 @@ a { color:inherit;
   text-decoration: none;
 }
 .hovertext a{
-  color:white;
+  color:red;
     transition: color 1s;
 }
 body {    
