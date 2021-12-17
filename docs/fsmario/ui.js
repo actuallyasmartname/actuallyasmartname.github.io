@@ -24,6 +24,9 @@ function start() {
   // Level editor
   setLevelEditor();
   
+  // Options
+  setOptions();
+  
   // Make lots of friends
   setCheats();
 }
@@ -71,7 +74,6 @@ function setMapSelector(timed) {
     var elem;
     for(i = 1; i <= 8; ++i)
       for(j = 1; j <= 4; ++j) {
-        console.log("World" + i + String(j), game["World" + i + String(j)]);
         if(game["World" + i + String(j)] && (elem = document.getElementById("maprect" + i + "," + j)))
           elem.className = "maprect";
       }
@@ -139,6 +141,31 @@ function startEditor() {
   game.focus();
 }
 
+// Fills the options menu with a bunch of divs, each of which have an onclick of toggleGame('XYZ')
+function setOptions() {
+  var out = document.getElementById("in_options"),
+      options = [
+        "Mute",
+        "Luigi",
+        "FastFWD"
+      ],
+      innerHTML = "",
+      option, i;
+  for(i in options) {
+    option = options[i];
+    innerHTML += "<div class='maprectout' onclick='toggleGame(\"" + option + "\")'><div class='maprect big larger'>Toggle " + option + "</div></div>";
+    innerHTML += "<br />";
+  }
+  out.innerHTML += innerHTML + "<br />More coming soon!";
+}
+
+// toggleGame('XYZ') sends a message to the game to toggle XYZ
+function toggleGame(me) {
+  game.postMessage({
+    type: "toggleOption",
+    option: me
+  }, "*");
+}
 
 function setCheats() {
   var i;
@@ -151,12 +178,12 @@ function setCheats() {
     Change_Map_Location: "game.shiftToLocation(#);",
     Fast_Forward: "game.fastforward(amount; 1 by default);",
     Life: "game.gainLife(# amount or Infinity)",
-    Low_Gravity: "game.mario.gravity = game.gravity /= 2;",
+    Low_Gravity: "game.player.gravity = game.gravity /= 2;",
     Lulz: "game.lulz();",
     Random_Map: "game.setMapRandom();",
-    Shroom: "game.marioShroom(game.mario)",
-    Star_Power: "game.marioStar(game.mario)",
-    Unlimited_Time: "game.data.time.amount = Infinity;"
+    Shroom: "game.playerShroom(game.player)",
+    Star_Power: "game.playerStar(game.player)",
+    Unlimited_Time: "game.data.time.amount = Infinity;",
   }
   cheatsize = 0;
   for(var i in cheats)
